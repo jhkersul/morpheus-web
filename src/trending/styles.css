@@ -1,0 +1,33 @@
+.title {
+  font-size: 40px;
+  color: #fff;
+  font-weight: 200;
+  margin-top: 0px;
+}
+
+.icon {
+  font-size: 30px !important;
+  color: #fff !important;
+}
+
+.titleContainer {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.wordcloudContainer {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.wordcloudImage {
+  width: 100%;
+  max-width: 743px;
+}

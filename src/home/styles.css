@@ -1,0 +1,65 @@
+/**
+ * React Static Boilerplate
+ * https://github.com/koistya/react-static-boilerplate
+ *
+ * Copyright © 2015-2016 Konstantin Tarkus (@koistya)
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
+.container {
+  background-image: url("/images/fundo.png");
+  background-size: cover;
+  display: flex;
+  flex: 1;
+  height: 100%;
+}
+
+.centerContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 500px;
+}
+
+.searchContainer {
+  width: 600px;
+  position: relative;
+}
+
+.searchInput {
+  width: 100%;
+  background-color: transparent;
+  font-size: 50px;
+  font-weight: 200;
+  color: #fff;
+  border: 1px #fff;
+  border-style: none none solid none;
+  margin-top: 10px;
+}
+
+.searchInput:focus {
+  outline-color: transparent;
+  outline-style: none;
+  border: 2px #fff;
+  border-style: none none solid none;
+  margin-top: 9px;
+}
+
+.searchIcon {
+  color: #fff;
+  font-size: 40px !important;
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: white;
+}
