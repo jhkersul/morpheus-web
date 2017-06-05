@@ -7,14 +7,17 @@ import Navigation from '../../controllers/Navigation';
 import Layout from '../../components/Layout/Layout';
 import Timeline from '../../components/Twitter/Timeline';
 import SectionTitle from '../../components/General/SectionTitle';
-import { getTweets } from '../../actions/twitter';
+import { getTweets, getNewsTweets } from '../../actions/twitter';
 import { setSearchQuery } from '../../actions/general';
+import { analyze, analyzeNews } from '../../actions/analyze';
+import BarChart from '../../components/Charts/BarChart';
 
 class Dashboard extends Component {
 
   componentDidMount() {
     if (!this.props.searchQuery || this.props.searchQuery === '') {
       Navigation.navigateTo('/trending');
+      return;
     }
     this.getInfo();
   }
@@ -27,6 +30,9 @@ class Dashboard extends Component {
 
   getInfo() {
     this.props.getTweets(this.props.searchQuery);
+    this.props.analyze(this.props.searchQuery);
+    this.props.getNewsTweets(this.props.searchQuery);
+    this.props.analyzeNews(this.props.searchQuery);
   }
 
   handlePressEnter(value) {
@@ -48,14 +54,17 @@ class Dashboard extends Component {
             </Col>
             <Col xs={6}>
               <SectionTitle title="Reação do Público" icon="pie chart" />
+              <BarChart data={this.props.tones} />
             </Col>
           </Row>
-          <Row style={{ marginTop: 20 }}>
+          <Row style={{ marginTop: 20, marginBottom: 40 }}>
             <Col xs={6}>
               <SectionTitle title="Últimas Notícias" icon="newspaper" />
+              <Timeline tweets={this.props.newsTweets} />
             </Col>
             <Col xs={6}>
               <SectionTitle title="Reação da Mídia" icon="line chart" />
+              <BarChart data={this.props.tonesNews} />
             </Col>
           </Row>
         </Grid>
@@ -67,19 +76,31 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   tweets: PropTypes.array.isRequired,
+  newsTweets: PropTypes.array.isRequired,
+  tones: PropTypes.array.isRequired,
+  tonesNews: PropTypes.array.isRequired,
   getTweets: PropTypes.func.isRequired,
+  getNewsTweets: PropTypes.func.isRequired,
+  analyze: PropTypes.func.isRequired,
+  analyzeNews: PropTypes.func.isRequired,
   searchQuery: PropTypes.string.isRequired,
   setSearchQuery: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   tweets: state.twitter.tweets,
+  newsTweets: state.twitter.newsTweets,
+  tones: state.analyze.tones,
+  tonesNews: state.analyze.tonesNews,
   searchQuery: state.general.searchQuery,
 });
 
 const bindActions = dispatch => ({
   getTweets: query => dispatch(getTweets(query)),
+  getNewsTweets: query => dispatch(getNewsTweets(query)),
   setSearchQuery: query => dispatch(setSearchQuery(query)),
+  analyze: query => dispatch(analyze(query)),
+  analyzeNews: query => dispatch(analyzeNews(query)),
 });
 
 export default connect(mapStateToProps, bindActions)(Dashboard);
